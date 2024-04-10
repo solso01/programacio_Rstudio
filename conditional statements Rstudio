@@ -1,0 +1,166 @@
+1. Conditional Statements
+An “if statement” is written with the if keyword, and it is used to specify a block of code to be executed if a condition is TRUE:
+
+num <- 0
+
+if(num > 2) {
+  
+  result <- num + 2
+  
+  print(result)
+  
+}
+
+print("Done")  
+## [1] "Done"
+######################################################################################################################################################
+The else if keyword is R’s way of saying “if the previous conditions were not true, then try this condition”
+You can use as many else if statements as you want in R
+
+num <- 10
+
+if(num > 10) {
+  
+  print("The number is bigger than 10")
+  
+} else if (num < 10) {
+  
+  print("The number is smaller than 10")
+  
+}
+
+#########################################################################################################################################################################################
+The else keyword catches anything which isn’t caught by the preceding conditions
+
+num <- 10
+
+if(num > 10) {
+  
+  print("The number is bigger than 10")
+  
+} else if (num < 10) {
+  
+  print("The number is smaller than 10")
+  
+} else {
+  
+  print("The number must be 10")
+  
+}
+## [1] "The number must be 10"
+
+#########################################################################################################################################################################################
+
+1.4.1. Exercise 1
+Create a program that prints if a number is bigger than other number
+
+x <- 10
+y <- 5
+
+if (x > y) {
+  print(paste(x, "is bigger than ", y))
+}
+## [1] "10 is bigger than  5"
+x <- 5
+y <- 10
+
+if (x > y) {
+  print(paste(x, "is bigger than ", y))
+}
+1.4.2. Exercise 2
+Create a program that ask the students for their grades and returns if exam is pass.
+grade to pass is 5
+
+grade <- is.numeric(readline("Whats your grade?"))
+## Whats your grade?
+if (grade >= 5) {
+  print("Congratulations, you have pass your exam!")
+} else {
+  print("Sorry, you just failed your exam")
+}
+## [1] "Sorry, you just failed your exam"
+1.4.3. Exercise 3
+Create a program convert numerical grades to string grades.
+grade to pass is 5
+
+#grade <- as.numeric(readline("Whats your grade?"))
+
+if (grade == 10) {
+  
+  print("Congratulations, you have pass with Honors")
+  
+} else if (grade >= 9 & grade < 10 ) {
+  
+  print("Congratulation, your grade is an Excellent")
+  
+} else if (grade >= 7 & grade < 9 ) {
+  
+  print("Congratulations, your grade is an Notable")
+  
+} else if (grade >= 6 & grade < 7 ) {
+  
+  print("Congratulation, your grade is a Good")
+  
+} else if  (grade >= 5 & grade < 6 ) {
+  
+  print("You just pass your exam")
+  
+} else if  (grade < 5) {
+  
+  print("Sorry, you Falied the exam")
+  
+} else {
+  
+  print("Sorry, you migth have introduced a wrong value")
+  
+}  
+## [1] "Congratulations, your grade is an Notable"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
