@@ -1,0 +1,758 @@
+##resumen practicas R
+
+### operaciones y operadores: 
+x <-10.5  #numeric
+y <-10L   #integer 
+z <- 1i   #complex
+
+#you can conver from one type to another with this funcions
+a <- as.numeric(x)
+b <- as.integer(y)
+c <- as.complex(z)
+
+#operations
+
+x <- -10
+y <- 5
+z <- x + y
+
+
+#tipos de valores (numericos, characteres, bouleanos)
+
+x <- 1L
+y <- 2
+
+class(x) #integer
+class(y) #numeric 
+
+#para transformar las variables:
+
+a <-as.numeric(x)
+class(a) #transformado de integer a numerico 
+
+b <- as.integer(y)
+class(b) #transformado a integer 
+
+x <- 10
+y <- "10"  #todo lo que está entre comillas lo interpreta como texto y por tanto no puede operarlos
+
+class(x) #numerico
+class(y) #character
+
+a <- as.character(a)
+
+y <- "20"
+class(y)  #si me dan una tabla con valores "x" no los podre operar, los tengo que transformar
+
+b <-as.numeric(y) #el caracter b transformado a un valor numerico para poder operarlo
+print(b)  
+
+
+#operadores
+
+# 1-asignadores: "<-" / "=" (puede dar a error)
+
+# 2-operadores matematicos:  "+" / "-" / "*" / "/" / "^" (puedo hacer operaciones tanto con variables, como con valores y puedo mezclarlos pero siempre y cuando la variable sea numerica)
+
+# 3- resto de divisiones, el modulo: "%%" nos calcula el resto de una división 
+
+a <- 10     a/b = 2
+b <- 5      a%%b = 0 #--> nos da el resto de la división 
+
+#  z_int--> para calcular el valor entero de una división con resto
+
+####### Ejercicio 3: crea un programa que añada 2 a un numero.
+
+a <- 2 
+b <- 10
+
+a + b = 12
+print(a+b)      
+
+####### Ejercicio 4: las manzanas cuestan 0.30, bananas 0.42, peras 0.33. compro 3 manzanas, 6 bananas y 0 peras. 
+
+price_banana <- 0.42
+price_manzana <- 0.30
+price_peras <- 0.33
+
+unidades_banana <- 6
+unidades_manzana <- 3
+unidades_peras <- 0
+
+precio_total <- (unidades_manzana*price_manzana)+(unidades_banana*price_banana)+(price_peras*unidades_peras) 
+
+precio <-6*0.42 + 3*0.3 + 0*0.33 
+print(precio_total)
+
+
+########## Ejercicio 5: utiliza el anterior codigo para la siguiente información, reutilización de codigo (codigo resistente)
+
+price_banana <- 0.40
+price_manzana <- 0.33
+price_peras <- 0.33
+
+unidades_manzana <- 3
+unidades_banana <- 6 
+unidades_peras <- 2
+
+precio_total <- (unidades_manzana*price_manzana)+(unidades_banana*price_banana)+(price_peras*unidades_peras)
+
+precio <-6*0.40 + 3*0.33 + 2*0.33
+print(precio_total)
+
+
+#operadores de comparación
+
+# "==" --> para saber si dos variables son iguales 
+x <-5
+y <-10 
+x == y 
+print(x == y) #false
+
+
+# "!=" --> no igual
+x <-5
+y <-10 
+x != y 
+print(x != y)  #true
+
+# ">" / "<" / ">=" / "<=" --> mayor/menor/menor o igual / mayor o igual que 
+
+#operadores logicos: 
+
+# AND --> "&&" uno o dos
+# OR --> "||" uno o dos
+# NOT --> "!" 
+
+####### Ejemplo
+a <-20 
+is.numeric(a) # -->TRUE
+!is.numeric(a) # --> FALSE
+
+
+# Sequencias numericas VECTORES
+
+x <- 1 
+y <- c(1,2,3,4) #cuando tenemos mas de un valor en una variable = vector --> y lo indicamos con una c(valores separados por comas)
+z <- 1:1000 #cuando tengo un vector con muchos numeros y no los quiero poner todos a mano
+as.numeric(z)
+print(z)
+length(z)
+
+x <- c("a","b","c","d") #esto tambien pueden ser palabras 
+y <- c("a":"z")  #esto no lo puede generar
+
+
+#### Ejercicio: encuentra el vector. El elemento que lo hace "%in%" --> is this inside?
+
+x <- 1:10
+y <- 5
+z <- 12 
+
+y %in% x   #TRUE
+z %in% x   #FALSE 
+
+
+
+#########leer datos --> getwd() / setwd() // session set working directori y selecciono la carpeta, para que siempre busque en la misma carpeta los datos con los que voy a trabajar 
+
+#Acompañando a una base de datos hay una meta base, que da información sobre el significado de los valores de las variables
+
+#hay que comprovar tres cosas: bd(nombre que le doy al arxivo)<-read.table("datos1.txt", header(la primera fila son nombres de variables) = TRUE, dec="."(que marca el decimal), sep="\t"(que separa los valores))
+
+#view(nombre tabla) te enseña la tabla / head() enseña las filas / summary () te hace distintas operaciones con las variables
+
+#Buscar valores de la tabla matriz: / (bd, es el nombre ejemplo de la matriz) bd[1,] enseña la primera fila, primera entrada / bd[,2] enseña la segunda columna / names(bd) te da los nombres de la matriz / names(nombre matriz)[2] te da los nombres de la segunda columna / names(bd)[2]<-"genero" te cambia el nombre que hay en la posición 2, por la nueva variable que le asignas / bd(nombre de la matriz)$altura(nombre de la variable) te da todas las alturas de todas las personas / bd$altura[1] te da el valor de la altura de la entrada 1 / bd[,c(2,4)]()
+
+#class(bd$sexo) te dice el típo de valores que hay, integer: numeros enteros numeric: numeros decimales factor:variables cualitativas  / bd$sexo<-as.factor(bd$sexo) transforma los valores de un típo a otro, al hacer summary(bd) te los trata como texto y los recuenta / levels(bd$sexo)<-c("Hombre","Mujer") que categoria tienen las variables hombre, mujer
+
+#bd$altura[bd$altura==999]<-NA si en la tabla bd, en la variable altura hay 999 se cambia por NA / bd$altura[bd$altura==171]<-1.71
+
+#bd$edad2<-cut(bd$edad,c(0,50,60,1000)), creamos una cariable continua en categorica, coje los valores de las egades y la agrupación me la guarda como edad2 / bd$edad2<-cut(bd$edad,c(0,50,60,1000))
+#bd$edad2<-cut(bd$edad,c(0,50,60,1000)) #corto los valores en subgrupos
+#class(bd$edad2) #miro la categoria y compruevo que me lo pasa a factor
+#levels(bd$edad2) #cuales son los intervalos 
+#levels(bd$edad2)<-c("hasta 50","de 50 a 60","mas de 60") #cambio el intervalo por texto 
+
+
+
+#bd$imc<-bd$peso/bd$altura^2 #calculo el imc de las personas y lo añado a la tabla
+#summary(bd$imc)
+
+#hombres50<-subset(bd,bd$sexo=="Hombre" & bd$edad>=50) #analizar un subconjunto de datos, se crea una sub base de datos
+#estudiosmenos50<-subset(bd,bd$estudios!="sin estudios" | bd$edad<50) /estudiosmenos50<-subset(bd,bd$estudios!="sin estudios", creamos una subbase de datos con individuos que tienen algún tipo de estudios o son menores de 50 años| bd$edad<50)
+#exclamación = menos los excluye y y la barra es el O tendria que cumplir alguna condición
+
+
+#write.table(bd,'datos1bis.txt',col.names = TRUE, dec=".", quote=F, sep='\t',row.names=F)  / save(datos, file = "practica1.RData")
+
+
+###VECTORES Y MATRICES
+
+
+#crear un vector (una sola dimensión) --> c(valor1, valor2, "texto", etc)
+
+#crear una matriz --> matrix(nrow=numero de filas, ncol=numero de columnas) /// my_matrix_2 <- matrix(data = c("roger", "aure", "pedro", "juan") , nrow = 2, ncol = 2) --> matriz de 2x2 con nombres
+#print(my_matrix_2) 
+
+#ejemplo de matriz mal hecha --> my_matrix_mala <- matrix(c(1:10), nrow = 3, ncol = 2)
+
+#In matrix(c(1:10), nrow = 3, ncol = 2) :
+#la longitud de los datos [10] no es un submúltiplo o múltiplo del número de filas [3] en la matriz
+
+#para saber la disposición de una matriz utilizamos la función dim(nombrematriz)
+
+#para saber la longitud de un vector = length(nombrevector)
+
+#para encontrar información en una posición de un vector utilizo = nombre del vector [numero de posición que quiero]
+
+#para encontrar la posición en una matriz utilizo = nombre matriz [posición en fila, posición columna]
+#si solo pongo [1, ] = me da la info de la primera fila/ si solo pongo [ ,1] me da la info de la primera colunma
+
+#EJEMPLO de busqueda de datos en una matriz: 
+
+my_matrix_3 <- matrix(c(1:100), nrow = 10, ncol = 10) #creo la matriz
+print(my_matrix_3)
+
+#si quiero el 42 
+my_matrix_3[2,5]
+#si quiero todo un grupo de datos 
+my_matrix_3[7:10, 5:10]
+#quiero filas salteadas 
+my_matrix_3[c(2,4,6,8,10), 5:10] 
+
+
+#añado una columna con la formula = cbind (column bind)
+cbind(my_matrix_3, c(101:110))
+
+#añado una fila = rbind
+rbind(my_matrix_3, c(101:110))
+
+#eliminar una casilla --> 
+#nombre matriz[-c(lo que quiero eliminar), -c(otra cosa que quiero eliminar)]
+
+#cambiar un valor de una casilla
+#nombre de la patriz[posición] <-la sustitución
+
+#ordenar una matriz --> variable matriz ordenada <- nombre matriz[order(nombre matriz[,2]), ] / ordena las filas de la matriz en base a la columna 2 de la matriz 
+
+#ordenar un vector --> sort(nombre del vector)
+
+#encontrar algo en la matriz --> nombre de la matriz["lo que busco" %in% nombre matriz[donde busca],] // estoy seleccionando las FILAS que tienen lo que quiero en la tercera columna. 
+
+#nombre de la matriz["lo que busco" == nombre matriz[donde busca],] --> el == va fila por fila, los compara 
+
+#nombre matriz[22<= nombre matriz[donde busca], ] // selecciona las FILAS que sean <= a 22
+
+#patients[22<= patients[,2]& 25> patients[,2], ] // elimina de la matriz patients 
+
+
+
+
+
+#EJEMPLO DE CREACIÓN DE UN DATA FRAME  
+
+#Use the data.frame() function to create a data frame. You have to indicate the name and content of the columns.
+
+my_df <- data.frame( Patient_ID = c("Patient_001", "Patient_002", "Patient_003", "Patient_004", "Patient_005", "Patient_006", "Patient_007"),
+  Resting_Pulse = c(100, 150, 120, 60, 80, 75, 105),
+  Systolic_BP = c(113, 110, 120, 100, 105, 122, 121),
+  Diastolic_BP = c(76, 75, 90, 70, 75, 87, 91)
+)
+
+my_df
+##    Patient_ID Resting_Pulse Systolic_BP Diastolic_BP
+## 1 Patient_001           100         113           76
+## 2 Patient_002           150         110           75
+## 3 Patient_003           120         120           90
+## 4 Patient_004            60         100           70
+## 5 Patient_005            80         105           75
+## 6 Patient_006            75         122           87
+## 7 Patient_007           105         121           91
+
+df_ordenada <- my_df[order(my_df[,2]), ]
+df_ordenada #ordenados por resting pulse
+
+df_ordenada_2 <- my_df[order(my_df[,3]), ]
+df_ordenada #ordenados por Systolic_BP
+
+class(my_df)
+
+df <- as.data.frame(my_matrix) #transforma la matriz a data frame
+
+length(my_df) #anchura
+
+my_df[["Patient_ID"]] #te muestra lo que quieres
+my_df[,1] #muestra primera columna
+
+#para eliminar funciona igual que en la matriz
+#para sustituir un valor o casilla igual que en la matriz
+
+#si dos data frames tienen el mismo numero de filas, podemos unir dos data frames --> 
+
+#rownames(nombre del data frame/matriz) <- nombre que le quieras dar / colnames(nombre del data frame/matriz) <- nombre que le quieras dar --> nombre de filas y columnas 
+
+
+
+##Estructuras iterativas
+
+# 1 IF STATMENTS --> si se cumple la condición hago
+
+num<-readline(prompt="valor") #per que l'usuari pugui escriure 
+num<-as.integer(num) #per que R ho entengui com un valor 
+
+if((num%%2)!=0){ #si el numero dividit entre dos dona un residu diferent a 0 sera senar, si es senar fes el print
+  print(paste(num, "is odd"))} #paste serveix per fer el print de un numero seguit de text 
+
+#respuesta --> [1] "5 is odd"
+
+# 2 IF-ELSE --> si se cumple una condición hago una cosa, si se cumple otra condición hago otra cosa 
+
+num <- readline(prompt="valor") # Permet a l'usuari introduir un valor
+num <- as.integer(num) # Converteix el valor a enter
+
+if((num %% 2) != 0){ # Si el número és senar (el residu de la divisió per 2 és diferent de 0)
+  print(paste(num, "is odd")) # Imprimeix que el número és senar
+} else { # En cas contrari (quan el número és parell)
+  print(paste(num, "is even")) # Imprimeix que el número és parell
+}
+
+#### Los corchetes se ponen justo despues de la condición y se cierran donde acaban las operaciones de esa operación
+#### Si tinc problemes amb el codi pregunto al chat GPT
+
+#forloops en data frames 
+my_df <- data.frame(
+  Patient_ID = c("Patient_001", "Patient_002", "Patient_003", "Patient_004", "Patient_005", "Patient_006", "Patient_007"),
+  Resting_Pulse = c(100, 150, 120, 60, 80, 75, 105),
+  Systolic_BP = c(113, 110, 120, 100, 105, 122, 121),
+  Diastolic_BP = c(76, 75, 90, 70, 75, 87, 91)
+)
+
+my_df
+
+for (x in my_df$Systolic_BP) {
+  print(x)
+}             #me muestra las sistolic_bp de todos los pacientes 
+
+for (x in my_df[4,]) {
+  print(x)
+}            #que me imprima los valores del paciente 4 
+
+#You can combine multiple for loops one inside of others. This is called a nested loop:
+
+#2.5.1. Basic structure of nested for loop
+#We have an outer for loop - inside of which it’s statements
+#We have an inner for loop - inside of which there are other statements
+
+seq_1<-1:3
+seq_2<-1:3
+
+for (i in seq1) { # outer for loop
+  
+  print("Hi!") # statement of outer loop
+  
+  for (j in seq2) { # inner for loop
+    
+    print("Good Job") # statement of inner loop
+    
+  }
+  
+}
+
+#A more concise version will be:
+seq1 <- c("Sofia", "Mikel", "Rose")
+seq2 <- c("Painting", "Sculpture", "Photography")
+for (i in seq1) { # outer for loop
+  
+  # We can hace no statement 
+  
+  for (j in seq2) { # inner for loop
+    
+    print(paste("Hi", i ,"you did a good Job with your ", j)) # statement of inner loop
+    
+  }
+  
+}
+
+#2.5.3. You can use nested for loop to travers tables (matrix, dataframes, etc) 
+
+res = matrix(nrow=4, ncol=4) # create a 4 x 4 matrix (of 4 rows and 4 columns)
+
+res  #es genera buida, pero amb el bucle for la omplo
+
+for(i in 1:nrow(res)) {  # Assigned a variable  ‘i’ for each row
+  
+  for(j in 1:ncol(res)){ # Assigned a variable  ‘j for each column
+    
+    res[i,j] <- i * j    # Calculate the product of two indices and assigning it to an element of the matrix
+    
+  }
+  
+}  
+
+res
+
+
+# 3 for loops --> pots recorre matrius i dataframes fent operacions 
+
+one_to_ten<-c(1:10)
+for(i in one_to_ten)
+{
+  print (i)}
+
+# Ejercicios 
+#Create a program that ask the students for their grades and returns if exam is pass.
+##grade to pass is 5
+
+num<-readline(prompt = "Whats your grade?")
+
+num<-as.numeric(num)
+
+if(num >= 5){
+  print("you pass")
+  
+} else {
+  print("you fail")
+}
+
+
+#Create a program convert numerical grades to string grades.
+
+#grade <- as.numeric(readline("Whats your grade?"))
+
+grade<-readline(prompt = "Whats your grade?")
+
+grade<-as.numeric(grade)
+
+if (grade == 10) {
+  
+  print("Congratulations, you have pass with Honors")
+  
+} else if (grade >= 9 & grade < 10 ) {
+  
+  print("Congratulation, your grade is an Excellent")
+  
+} else if (grade >= 7 & grade < 9 ) {
+  
+  print("Congratulations, your grade is an Notable")
+  
+} else if (grade >= 6 & grade < 7 ) {
+  
+  print("Congratulation, your grade is a Good")
+  
+} else if  (grade >= 5 & grade < 6 ) {
+  
+  print("You just pass your exam")
+  
+} else if  (grade < 5) {
+  
+  print("Sorry, you Falied the exam")
+  
+} else {
+  
+  print("Sorry, you migth have introduced a wrong value")
+  
+}  
+
+#You can combine integrative structs.
+
+#2.4.1. Make a program that tells you that you have to open the doble chip barrier in parchis when your dice number is 6.
+
+dice <- 1:6
+
+for(x in dice) {
+  if (x == 6) {
+    print(paste("The dice number is", x, "You have to open the barrier!!!"))
+  } else {
+    print(paste("The dice number is", x, "you can move your chip"))
+  }
+}
+
+####estadística descriptiva --> abrir una base de datos y describirla 
+
+# Bioestadistica
+# Practica 2: Estadistica descriptiva
+
+# Ejercicio 1
+
+getwd()
+setwd("C:/Users/Usuario/Escritorio/Rstudio/bioestadística/practica 3")   #buscar los datos 
+bd<-read.table("datos2.txt", header = TRUE , dec=".", sep="\t")   #descripción de la base de datos para que la lea 
+
+bd$sexo<-as.factor(bd$sexo)
+bd$previa<-as.factor(bd$previa)        #cambio los caracteres a factores para poder operar 
+bd$tecnica<-as.factor(bd$tecnica)
+bd$pierna<-as.factor(bd$pierna)
+bd$dolor<-as.factor(bd$dolor)
+
+
+# Ejercicio 3
+#3,a variable cualitativa
+table(bd$sexo) #frecuencia absoluta de hombre y mujeres
+prop.table(table(bd$sexo)) #frecuencia realtiva de hombres y mujeres 
+
+#3.b
+pie(table(bd$sexo)) #diagrama de sectores 
+
+barplot(table(bd$sexo)) #diagrama de barras
+
+barplot(table(bd$sexo),ylim=c(0,100)) #para poner valores a los ejes del grafico
+
+barplot(prop.table(table(bd$sexo))) #te hace el grafico con las frecuencias relativas 
+
+barplot(table(bd$sexo))
+#añadimos el eje horizontal 
+abline(h=0)
+
+barplot(table(bd$sexo),xlab="Sexo", ylab="Numero de operaciones",
+        main="Sexo de los pacientes operados")                           #añade título al grafico
+
+barplot(table(bd$sexo),xlab="Sexo", ylab="Numero de operaciones",
+        main="Sexo de los pacientes operados",cex.names=1.5,cex.lab=0.8,cex.axis=3,cex.main=0.2)   #cambia el tamaño de los nombres del grafico
+
+barplot(table(bd$sexo),horiz=TRUE)  #me hace el grafico horizontal 
+
+barplot(table(bd$sexo),yaxt="n")  #me oculta el eje de las y 
+axis(2,at=c(0,20,40,60,80),labels=c("Cero", "Veinte","Cuarenta","Sesenta","Ochenta")) #determino que quiero poner en el eje 2(vertical izquierda)
+axis(4,at=c(0,20,40,60,80),labels=c("Cero", "Veinte","Cuarenta","Sesenta","Ochenta")) #lo mismo a la derecha 
+
+barplot(table(bd$sexo),horiz=TRUE, xaxt="n")
+axis(1,at=c(0,20,40,60,80),labels=c("Cero", "Veinte","Cuarenta","Sesenta","Ochenta"))  #igual pero en graficos horizontales 
+axis(3,at=c(0,20,40,60,80),labels=c("Cero", "Veinte","Cuarenta","Sesenta","Ochenta"))
+
+palette() #paleta de colores de R 
+barplot(table(bd$sexo),col=c(1,2)) #que use el primero y el segundo color
+barplot(table(bd$sexo),col=c(3,4))
+barplot(table(bd$sexo),col=c(5,6))   #simplemente voy cambiando los colores 
+barplot(table(bd$sexo),col=c(7,8))
+barplot(table(bd$sexo),col=c(9,10)) #Que ocurre aqui??? vuelve a empezar desde el primero
+
+colors()  #lista mas larga de colores 
+barplot(table(bd$sexo),col=c("whitesmoke","turquoise")) #le escribo el color de la paleta de R 
+barplot(table(bd$sexo),col=c(colors()[651],colors()[635]))  #le pongo las posiciones del vector colors(donde tiene los colores R)
+barplot(table(bd$sexo),border=c(1,2),col=c(2,1)) #te pinta el borde de las barras 
+
+
+
+# Ejercicio 4
+
+#4.a --> calculos variables numericas 
+mean(bd$edad)
+median(bd$edad)
+sd(bd$edad)
+quantile(bd$edad, c(0.2, 0.3, 0.7))
+IQR(bd$edad)
+
+
+library(EnvStats) #función extra de R, simpre tengo que ejecutar primero el libray antes de la función extra 
+summaryFull(bd$edad) #summaryFull, te da todo de golpe 
+
+#4.b --> graficos variables numericas
+hist(bd$edad) #histograma
+
+hist(bd$edad,xlim=c(min(bd$edad)-1,max(bd$edad)+1))
+
+hist(bd$edad,breaks=5)                             #voy variando los intervalos 
+
+hist(bd$edad,breaks=c(15,20,25,30,35,40,45))
+
+boxplot(bd$edad)   #boxplot
+boxplot(bd$edad,horizontal=TRUE) #boxplot horizontal
+
+abline(v=mean(bd$edad),lty=2,lwd=4,col="red") 
+abline(v=mean(bd$edad)-1,lty=3,lwd=3,col="blue")
+abline(v=mean(bd$edad)+1,lty=4,lwd=3, col="blue")
+abline(v=mean(bd$edad)-3,lty=5,lwd=2, col="green")
+abline(v=mean(bd$edad)+3,lty=6, lwd=2, col="green")
+#vas poniendo las medias representadas con linias de colores 
+
+
+# Ejercicio 5
+
+#5.a --> divariante descriptiva de dos variables cualitativas
+table(bd$sexo, bd$tecnica) #tabla de contingencia 
+prop.table(table(bd$sexo, bd$tecnica)) #proporcion de toda la tabla 
+prop.table(table(bd$sexo, bd$tecnica),1) #pordentage de la celda entre el total de todas las filas 
+prop.table(table(bd$sexo, bd$tecnica),2) #pordentage de la celda entre el total de todas las columnas
+
+#5.b --> graficos
+barplot(table(bd$sexo, bd$tecnica)) #para cada tecnica separa en dos grupos
+
+barplot(table(bd$tecnica, bd$sexo)) #para cada sexo 
+
+barplot(prop.table(table(bd$tecnica, bd$sexo)))
+
+barplot(prop.table(table(bd$tecnica, bd$sexo),1))
+
+barplot(prop.table(table(bd$tecnica, bd$sexo),2))
+
+barplot(table(bd$tecnica, bd$sexo),beside=TRUE)
+
+barplot(table(bd$tecnica, bd$sexo),beside=TRUE,legend.text=TRUE) #pone las barras una al lado de la otra 
+
+barplot(table(bd$tecnica, bd$sexo),beside=TRUE,legend.text=TRUE,args.legend=list(x="topleft",ncol=1)) #añado la leyenda con lo que significa cada color y donde la quiero 
+barplot(table(bd$tecnica, bd$sexo),beside=TRUE,legend.text=TRUE,args.legend=list(x="topright",ncol=1)) #situo la leyenda arriba a la derecha para que no me joda el grafico
+
+
+
+# Ejercicio 6
+
+#6.a --> te lee variables cualitativas y cuantitativas 
+
+library(doBy)  #simpre la tengo de ejecutar antes de usar la función extra 
+summaryBy(edad~tecnica,bd,FUN=summary)
+summaryBy(edad~tecnica,bd,FUN=c(mean,sd))
+summaryFull(bd$edad~bd$tecnica) # te la el summary full de edad y tecnica
+
+#6.b --> graficos 
+boxplot(bd$movilidad0~bd$sexo)
+
+stripchart(bd$movilidad0~bd$sexo)
+
+stripchart(bd$movilidad0~bd$sexo,vertical=TRUE)
+
+stripchart(bd$movilidad0~bd$sexo,method="jitter",vertical=TRUE,jitter=0.1)  #te agita el grafico
+
+stripchart(bd$movilidad0~bd$sexo,method="jitter",vertical=TRUE,jitter=0.2)
+
+boxplot(bd$movilidad0~bd$sexo)
+stripchart(bd$movilidad0~bd$sexo,method="jitter",add= TRUE, vertical = TRUE, jitter=0.1) #te añade graficos (add = TRUE, que grafico quieres añadir)
+
+boxplot(bd$movilidad0~bd$pierna+bd$sexo) #grafico de varias variables boxplot
+
+boxplot(bd$movilidad0~bd$pierna+bd$sexo,ylim=c(min(bd$movilidad0)-5,max(bd$movilidad0)+5),col=c("green","red","green","red"),xaxt="n",border=c("black","black","grey","grey")) #me asigna colores 
+legend("bottomleft",levels(bd$sexo), pch=0, col=c("black","grey")) #añado leyenda 
+legend("bottom",levels(bd$pierna),pch=15,col=c("green","red")) #añado leyenda 
+legend("top","Movilidad por pierna y sexo") #añado título 
+
+
+
+# Ejercicio 7
+
+#7.a --> dos cuantitativas 
+
+cor(bd$edad,bd$movilidad0) #correlación de dos cuantitativas (entre -1 y 1)
+#-0.6 correlación inversa, a mas edad menos movilidad 
+
+#7.b --> grafico 
+
+plot(bd$edad,bd$movilidad0) #eje x = causa, y = consecuencia 
+
+plot(bd$edad,bd$movilidad0,pch=21,bg=c("green","blue")[as.factor(bd$sexo)]) #que me pinte de color cada punto en función del sexo 
+legend("topright",levels(bd$sexo),pch=21,pt.bg=c("green","blue")) #añado leyenda 
+
+plot(bd$edad,bd$movilidad0,pch=c(1,8)[as.factor(bd$sexo)])
+legend("bottomleft",levels(bd$sexo),pch=c(1,8))
+
+#comparar un grupo en concreto de una tabla formada por varios grupos, ESTRATIFICO
+hombres<-subset(bd, bd$sexo == "Hombre")  #he creado una base de datos con solo hombres 
+prop.table(table(hombres$dolor, hombres$tecnica),2) #comparo en el grupo de hombres el dolor con la tecnica 
+
+
+
+# parcial R 
+
+#[1] Lee la base de datos y cambia el tipo de variable para que sean el correcto en cada caso. Escribe el código.
+setwd( "C:/Users/Usuario/Desktop/Rstudio/bioestadística/examen parcial R")
+getwd()
+bd<-read.table("datos.txt",header=TRUE,dec=".",sep="\t")
+summary(bd)
+bd$sexo<-as.factor(bd$sexo)
+bd$tabaco<-as.factor(bd$tabaco)
+
+#[2] Crea una nueva variable de la base de datos que clasifique a los individuos según si su capacidad vital es: a) de 1,5 litros o inferior; b) mayor de 1,5 litros y menor o igual a 2,5 litros; y c) mayor de 2,5 litros. Escribe el código.
+bd$capacidad.vital.2<-cut(bd$cv,c(0,1.5,2.5,10))
+
+#[3] Crea una nueva base de datos formada por mujeres de más de 50 años y hombres de más de 60 años. Escribe el código.
+Datos2<-subset(bd,(sexo=="hombre" & edad > 60) | (sexo=="mujer" & edad > 50))
+
+#[4] Calcula media y desviación estándar de la capacidad vital de hombres y mujeres por separado.
+library(doBy)
+summaryBy(cv~sexo,data=bd,FUN = c(mean,sd))
+
+# media hombre: 2.29 (0.37)
+# media mujer 2.32 (0.31)
+
+#[5] Calcula: a) el porcentaje de hombres que fuma y b) el porcentaje de fumadores que son hombres.
+prop.table(table(bd$sexo,bd$tabaco),1) 
+#desviación estandar hombres  31,7%
+prop.table(table(bd$sexo,bd$tabaco),2) 
+#desviación estandar mujeres 39,6%
+
+#[6] Calcula la correlación entre la edad y la capacidad vital
+cor(bd$edad,bd$cv)
+#corr = 0,028
+
+pnorm(4,2.3, 0.6) - pnorm(3.5, 2.3, 0.6)
+
+
+
+#practica inferencia univariante !!!HAY QUE TENER CALRO CON QUE TÍPO DE VARIABLE TRABAJO¡¡¡
+
+# 1) leer datos: 
+getwd()
+setwd("C:/Users/Usuario/Desktop/Rstudio/bioestadística/practica inferencia univariante")
+datos<-read.table("datos3.txt", header=TRUE, dec=".", sep = "\t", stringsAsFactors = TRUE)
+#con esto el programa ya me lee los datos que he guardado en mi carpeta practica inferencia univariante
+
+# 2) trabajo con variables cualitativas por lo tanto uso el prop.test (proporciones)
+table(datos$sexo) #genero la tabla de valores 
+prop.table(table(datos$sexo)) #hago una tabla de proporciones del sexo 
+summary(datos$sexo) #hago un resumen del sexo en los datos 
+sum(summary(datos$sexo))
+
+prop.test(76,137,conf.level = 0.95) #intervalo de confianza al 95%
+
+prop.test(76,137,p=0.55)  #aquí pruebo la hipotesis nula con su proporción 0.55 y nos calcula el p-value
+
+# 3) trabajo con una variable cuantitativa, por tanto trabajo con t.test (t-student)
+
+summary(datos$ataque) #hago un summary de la base datos sobre la información de ataques 
+mean(datos$ataque) #calculo directamente la media 
+t.test(datos$ataque,conf.level=0.95) #aquí uso el t.test por que la variable es cuantitativa
+t.test(datos$ataque)
+t.test(datos$ataque,mu=45) #calcula el p-value, bajo la hipotesis alternativa de que mu (parametro es 45)
+
+#extras!!!
+
+# EJERCICIO 4 variable cualitativa uso los prop.test proporciones) 
+
+table(datos$tabaco)
+prop.table(table(datos$tabaco))
+prop.test(49,137,conf.level = 0.95)
+prop.test(49,137,conf.level = 0.99)
+prop.test(49,137,p=0.42) #pruebo la hipotesis de que la proporción real es de 42%
+
+
+# EJERCICIO 5 variable cuantitativa uso los t.test
+
+mean(datos$cv)
+t.test(datos$cv,conf.level=0.99)
+t.test(datos$cv, mu=3.35) #pruebo la hipotesis de que la capacidad vital de los asmaticos es diferente que la población normal
+
+
+#practica inferencia bivariante cualitativa vs cualitativa
+
+##Ejercicio 1: LEEMOS LOS DATOS 
+getwd()
+setwd("C:/Users/Usuario/Desktop/Rstudio/bioestadística/practica 4 inferencia bivariante"
+)
+datos<-read.table("dmo.txt" , header = TRUE , dec = "." , sep = "\t")
+
+##Ejercicio 2: 
+#Tabla de contingencia de las 2 vars categoricas:
+T<-table(datos$sexo,datos$dmocat)
+addmargins(T) #te añade los margenes a una tabla 
+prop.table(T,1) #hago prop table por FILAS
+#Guardar resultados test chi-cuadrado:
+Test<-chisq.test(T)#hago el test CHI CUADRADO, adecuado para mi muestra
+chisq.test(T)
+#Tabla de contingencia de las frecuencias esperadas:(Comprobar condiciones aplicación)
+addmargins(Test$expected)
+#Resultado test Chi2
+Test
+#Test de Fisher
+fisher.test(T)
+#Medida de la diferencia
+prop.test(c(21,11),c(43,33)) #calculamos la diferencia en las proporciones 
+
